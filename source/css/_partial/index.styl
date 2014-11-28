@@ -164,7 +164,26 @@
     transition color .5s
     &:hover
       color color-theme
+      background lighten(color-gray, 50%)
       transition color .5s
+      
+  .archive-category-list
+    margin 0.5em 1.5em
+    ul
+    list-style: none
+    ul
+      list-style: disc
+  .archive-category-list-child
+    margin-left 2.5em
+    
+  .archive-category-list-count
+    color: color-grey
+    margin-left 0.3em
+    &:before
+      content: "("
+    &:after
+      content: ")"
+      
 .current
   color color-theme !important
 
