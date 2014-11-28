@@ -2,6 +2,8 @@
 menu:
   Home: /
   Archives: /archives
+  Categories: /categories
+  Tags: /tags
   About: /about
 ## you can create `tags` and `categories` folders in `../source`.
 ## And create a `index.md` file in each of them.
@@ -15,7 +17,6 @@ widgets:
 - category
 - tag
 - links
-- rss
 ## provide seven widgets:category,tag,rss,archive,tagcloud,links,weibo
 
 
@@ -25,10 +26,10 @@ rss: /atom.xml ## RSS address.
 #### Image
 imglogo:
   enable: true             ## display image logo true/false.
-  src: img/logo.png        ## `.svg` and `.png` are recommended,please put image into the theme folder `/jacman/source/img`.
-favicon: img/favicon.ico   ## size:32px*32px,`.ico` is recommended,please put image into the theme folder `/jacman/source/img`.     
-apple_icon: img/jacman.jpg ## size:114px*114px,please put image into the theme folder `/jacman/source/img`.
-author_img: img/author.jpg ## size:220px*220px.display author avatar picture.if don't want to display,please don't set this.
+  src: img/computer.png        ## `.svg` and `.png` are recommended,please put image into the theme folder `/jacman/source/img`.
+favicon: img/computer.ico   ## size:32px*32px,`.ico` is recommended,please put image into the theme folder `/jacman/source/img`.     
+apple_icon: img/computer.jpg ## size:114px*114px,please put image into the theme folder `/jacman/source/img`.
+author_img: img/xiayu.jpg ## size:220px*220px.display author avatar picture.if don't want to display,please don't set this.
 
 #### index post is expanding or not 
 index:
@@ -37,8 +38,8 @@ index:
   
 #### Author information
 author:
-  intro_line1:  "Hello ,I'm Larry Page in Google."    ## your introduction on the bottom of the page
-  intro_line2:  "This is my blog,believe it or not."  ## the 2nd line
+  intro_line1:  "Hello, Welcome to my blog!"    ## your introduction on the bottom of the page
+  intro_line2:  "Everthing will be all right."  ## the 2nd line
   weibo:      ## e.g. wuchong1014 or 2176287895 for http://weibo.com/2176287895
   weibo_verifier:  ## e.g. b3593ceb Your weibo-show widget verifier ,if you use weibo-show it is needed.
   tsina:      ## e.g. 2176287895  Your weibo ID,It will be used in share button.
@@ -63,6 +64,7 @@ toc:
 #### Links
 links:
   Jark's Blog: http://wuchong.me
+  My Blog: http://xiayu0813.gitcafe.com
   Hexo: http://hexo.io
   
 

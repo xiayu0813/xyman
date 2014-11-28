@@ -64,13 +64,29 @@
     width 100%
     float none
     margin 1em 0 0
-  li 
-    border-bottom 1px solid color-gray
-    a
-      display block
-      padding 0.5em 5%
-      &:hover
-        color color-theme
+  
+  a
+    margin 0.2125em
+    padding 0.225em 0.125em
+    &:hover
+      color color-theme
+  
+  .widget-category-list
+    margin-top 0.5em
+    ul
+    list-style: none
+    ul
+      list-style: disc
+  .widget-category-list-child
+    margin-left 2.5em
+    
+  .widget-category-list-count
+    color: color-grey
+    &:before
+      content: "("
+    &:after
+      content: ")"
+
 
 //tag
 .tagslist

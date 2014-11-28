@@ -164,7 +164,40 @@
     transition color .5s
     &:hover
       color color-theme
+      background lighten(color-gray, 50%)
       transition color .5s
+      
+  .archive-category-list
+    margin 0.5em 1.5em
+    ul
+    list-style: none
+    ul
+      list-style: disc
+  .archive-category-list-child
+    margin-left 2.5em
+    
+  .archive-category-list-count
+    color: color-grey
+    margin-left 0.3em
+    &:before
+      content: "("
+    &:after
+      content: ")"
+      
+  .archive-tag-list
+    padding 0.5em 0
+    li
+      float left
+      a
+        display block
+        margin 0.3125em
+        padding 0.125em 0.3125em
+        background lighten(color-gray, 60%)
+        color color-blue
+        &:hover
+          color color-theme
+          background lighten(color-gray, 30%)
+      
 .current
   color color-theme !important
 
