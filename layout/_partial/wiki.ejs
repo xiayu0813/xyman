@@ -1,0 +1,202 @@
+<% page.wiki = ' '; %>
+<%
+var category_id2name = [];
+var category_name2id = [];
+var post_id2title = [];
+var post_title2id = [];
+site.categories.each(function(item){
+	category_name2id[item.name] = item._id;
+	category_id2name[item._id] = item.name;
+});
+site.posts.each(function(item){
+	post_title2id[item.title] = item._id;
+	post_id2title[item._id] = item.title;
+});
+transform_default = function(value) { return value; };
+list_categories_wiki = function(categories, options){
+  if (!options){
+    options = categories;
+    categories = site.categories;
+  }
+
+  if (!categories.length) return '';
+
+  options = _.extend({
+    orderby: 'name',
+    order: 1,
+    show_count: true,
+    style: 'list',
+    separator: ', ',
+    transform: transform_default,
+    depth: 0,
+    class: 'category'
+  }, options);
+
+  var style = options.style,
+    showCount = options.show_count,
+    className = options.class,
+    depth = parseInt(options.depth, 10),
+    orderby = options.orderby,
+    order = options.order,
+    result = '',
+    arr = [],
+    condition = {},
+    self = this;
+
+  if (style === 'list'){
+    result = '<ul class="' + className + '-list">';
+  } else {
+    result = '';
+  }
+
+  var list = function(i, parent){
+    var html = '';
+
+    if (depth > -1){
+      condition = {
+        parent: parent ? parent : {$exist: false}
+      };
+    }
+
+    categories.find(condition).sort(orderby, order).each(function(cat){
+      if (!cat.length) return;
+
+      if (style === 'list'){
+        html += '<li class="' + className + '-list-item">' +
+          '<a class="' + className + '-list-link" href="#test">' + options.transform(cat.name) + '</a>' +
+          (showCount ? '<span class="' + className + '-list-count">' + cat.length + '</span>' : '');
+
+        if (depth === 0 || depth > i + 1){
+          var child = list(i + 1, cat._id);
+
+          if (child){
+            html += '<ul class="' + className + '-list-child">' + child + '</ul>';
+          }
+        }
+
+        html += '</li>';
+
+        if (i === 0 && depth > -1) {
+          arr.push(html);
+          html = '';
+        }
+      } else {
+        arr.push('<a class="' + className + '-link" href="' + self.url_for(cat.path) + '">' +
+          options.transform(cat.name) +
+          (showCount ? '<span class="' + className + '-count">' + cat.length + '</span>' : '') +
+          '</a>');
+
+        if (depth === 0 || depth > i + 1){
+          list(i + 1, cat._id);
+        }
+      }
+    });
+
+    if (style === 'list'){
+      if (i > 0){
+        return html;
+      } else if (depth == -1){
+        arr.push(html);
+      }
+    }
+  };
+
+  list(0,category_name2id['wiki']);
+
+  if (style === 'list'){
+    result += arr.join('') + '</ul>';
+  } else {
+    result += arr.join(options.separator);
+  }
+
+  return result;
+};
+
+list_posts_title_wiki = function(categories, options){
+  if (!options){
+    options = categories;
+    categories = site.categories;
+  }
+
+  if (!categories.length) return '';
+
+  options = _.extend({
+    orderby: 'name',
+    order: 1,
+    class: 'wiki'
+  }, options);
+
+var orderby = options.orderby,
+    order = options.order,
+    className = options.class,
+    result = '',
+    arr = [],
+    condition = {};
+
+
+  var list = function(i, parent){
+    var html = '';
+
+    condition = {
+        parent: parent ? parent : {$exist: false}
+      };
+
+    categories.find(condition).sort(orderby, order).each(function(cat){
+      if (!cat.length) return;
+
+		html = '<ul class = "' + className + '-list-posts" id="'+ cat.name +'">';
+		var test = cat.posts.toString();
+		test = test.split(/\s*,\s*/);
+		test.forEach(function(posid){
+			var thepost;
+			site.posts.find({_id:posid}).each(function(item){
+				thepost = item;
+			});
+			html += '<li class="' + className + '-list-post-item">' +
+          	'<a class="' + className + '-list-post-link" href="#' + thepost.title + '" data-src = "'+ url_for(thepost.path)+'">' + thepost.title + '</a></li>';
+		});
+        html += '</ul>';
+		arr.push(html);
+		list(i + 1, cat._id);
+    });
+  }
+
+	categories.find({name:"wiki"}).sort(orderby, order).each(function(cat){
+	  if (!cat.length) return;
+		var html = '';
+		html = '<ul class = "' + className + '-list-posts" id="'+ cat.name +'">';
+		var test = cat.posts.toString();
+		test = test.split(/\s*,\s*/);
+		test.forEach(function(posid){
+			var thepost;
+			site.posts.find({_id:posid}).each(function(item){
+				thepost = item;
+			});
+			html += '<li class="' + className + '-list-post-item">' +
+	      	'<a class="' + className + '-list-post-link" href="#' + thepost.title + '" data-src = "'+ url_for(thepost.path)+'">' + thepost.title + '</a></li>';
+		});
+	    html += '</ul>';
+		arr.push(html);
+	});
+
+  list(0,category_name2id['wiki']);
+  result += arr.join('')
+  return result;
+};
+
+%>
+<div class="archive-wiki-title" >
+	<a class="wiki-list-link" herf="#wiki"><h2 class="tag-icon"><%= __('wiki') %></h2></a>
+	<ul class="archive-wiki-list">
+	<%- list_categories_wiki({class:"wiki"}) %>
+	</ul>
+</div>
+<div class="archive-wiki-part">
+	<div class="list_posts_title_wiki">
+	<%- list_posts_title_wiki() %>
+	</div>
+	<div class="wiki-list-box"></div>
+</div>
+
+
+

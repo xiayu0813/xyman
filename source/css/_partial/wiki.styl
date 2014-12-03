@@ -1,0 +1,68 @@
+.archive-wiki-title
+  margin 1em 0
+  width 97%
+  padding 2em 0 2em 3%
+  @media tablet
+    margin 2em 0
+    width 18.5%
+    padding-left 0.5%
+    float left
+  background color-section
+  border-left 0.5em solid color-gray
+  h2
+    width 90%
+    color color-blue
+    font-size font-size+20
+  a
+    color color-blue
+    transition color .5s
+    &:hover
+      color color-theme
+      background lighten(color-gray, 50%)
+      transition color .5s
+      
+  .wiki-list
+    margin 0.5em 1.5em
+    ul
+    list-style: none
+    ul
+      list-style: disc
+  .wiki-list-child
+    margin-left 2.5em
+    
+  .wiki-list-count
+    color: color-grey
+    margin-left 0.3em
+    &:before
+      content: "("
+    &:after
+      content: ")"
+      
+.archive-wiki-part
+  @media mini
+     min-height 200px
+  @media tablet
+    width 78% !important
+    float right
+    margin-top 1em
+    margin-left 2% !important
+  .list_posts_title_wiki
+    margin 1em 0
+    min-height 20px
+    width 97%
+    padding 0 0 2em 3%
+    background color-section
+    border-left 0.5em solid color-gray
+    li
+      float left
+      a
+        font-size font-size+20
+        display block
+        margin 0.5em 0.6em
+        padding 0.2em 0.3em
+        background lighten(color-gray, 60%)
+        &:hover
+          color color-theme
+          background lighten(color-gray, 60%)
+  .wiki-list-box
+    background color-section
